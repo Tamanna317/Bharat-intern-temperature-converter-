@@ -1,0 +1,180 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <style>
+	    body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('Temp.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    position: relative; /* Add this line */
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, red, purple, violet);
+    opacity: 0.8; /* Adjust the opacity as desired */
+    z-index: -1; /* Send the gradient layer behind the container */
+}
+
+.container-inner {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    width: 50%;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    font-size: 32px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+
+    .input-group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    label {
+        font-size: 18px;
+        margin: 0 10px;
+        color: #fff;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    label:hover {
+        color: black;
+    }
+
+    input[type="radio"]:checked+label {
+        color:black;
+        font-weight: bold;
+    }
+
+    input[type="number"] {
+        border: none;
+        border-bottom: 2px solid #ccc;
+        font-size: 18px;
+        margin-bottom: 30px;
+        padding: 10px;
+        width: 100%;
+        text-align: center;
+        background-color: #f2f2f2;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        transition: border-color 0.3s ease;
+    }
+
+    input[type="number"]:focus {
+        outline: none;
+        border-color: #4CAF50;
+    }
+
+    button {
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 18px;
+        padding: 10px 20px;
+        margin-top: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    #result {
+        font-size: 24px;
+        margin-top: 30px;
+        color: #333;
+        border: 2px solid #fff;
+        background-color: #f2f2f2;
+        padding: 10px;
+        border-radius: 5px;
+    }
+            </style>
+</head>
+<body>
+    <div class="container">
+        <div class="converter">
+          <h1>Temperature Converter</h1>
+          <input type="number" id="temperature" placeholder="Enter temperature">
+          <div class="input-group">
+            <input type="radio" name="unit" id="celsius" checked>
+            <label for="celsius">Celsius</label>
+          </div>
+        <div class="input-group">
+          <input type="radio" name="unit" id="fahrenheit">
+          <label for="fahrenheit">Fahrenheit</label>
+        </div>
+        <div class="input-group">
+          <input type="radio" name="unit" id="kelvin">
+          <label for="kelvin">Kelvin</label>
+        </div>
+        <button onclick="convert()">Convert</button>
+        <div class="result" id="result"></div>
+      </div>
+      <script>
+      function convert() {
+      var temperature = parseFloat(document.getElementById("temperature").value);
+      var celsius = document.getElementById("celsius").checked;
+      var fahrenheit = document.getElementById("fahrenheit").checked;
+      var kelvin = document.getElementById("kelvin").checked;
+      var result = document.getElementById("result");
+      
+      if (isNaN(temperature)) {
+      result.innerHTML = "Please enter a valid temperature";
+      return;
+      }
+      
+      if (celsius) {
+      var convertedToFahrenheit = (temperature * 9/5) + 32;
+      var convertedToKelvin = temperature + 273.15;
+      result.innerHTML = temperature + "°C = " + convertedToFahrenheit.toFixed(2) + "°F = " + convertedToKelvin.toFixed(2) + " K";
+      } else if (fahrenheit) {
+      var convertedToCelsius = (temperature - 32) * 5/9;
+      var convertedToKelvin = (temperature + 459.67) * 5/9;
+      result.innerHTML = temperature + "°F = " + convertedToCelsius.toFixed(2) + "°C = " + convertedToKelvin.toFixed(2) + " K";
+      } else if (kelvin) {
+      var convertedToCelsius = temperature - 273.15;
+      var convertedToFahrenheit = (temperature * 9/5) - 459.67;
+      result.innerHTML = temperature + " K = " + convertedToCelsius.toFixed(2) + "°C = " + convertedToFahrenheit.toFixed(2) + "°F";
+      }
+      }
+      
+      </script>
+  
+</body>
+</html>
